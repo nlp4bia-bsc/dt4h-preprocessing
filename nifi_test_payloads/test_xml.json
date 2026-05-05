@@ -1,0 +1,9 @@
+{
+  "content": [
+    {
+      "patient_id": "P004",
+      "admission_id": "A004",
+      "text_path": "/opt/data/preprocessing-test/sample.xml"
+    }
+  ]
+}
