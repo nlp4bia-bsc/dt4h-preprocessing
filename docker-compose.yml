@@ -1,0 +1,12 @@
+services:
+  dt4h-preprocessing:
+    build: .
+    ports:
+      - "5002:5002"
+    volumes:
+      - /opt:/opt
+
+networks:
+  default:
+    name: cogstack-net
+    external: true
