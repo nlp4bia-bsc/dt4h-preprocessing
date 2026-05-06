@@ -22,16 +22,16 @@ docker compose up --build
 
 Preprocessing microservice in a Cogstack-NiFi pipeline. Receives patient record metadata + a file path, extracts plain text, returns the same payload with a `text` field added. Output is consumed by OpenSearch (Avro). Runs on the `cogstack-net` docker network alongside NiFi.
 
-**Endpoint:** `POST /process_bulk`
+**Endpoint:** `POST /process`
 
-Input shape (mirrors the NER+NEL downstream service convention):
+Input: flat JSON per flowfile (NiFi sends one flowfile at a time):
 ```json
-{ "content": [{ "patient_id": "...", "admission_id|contact_id": "...", "text_path": "/opt/...", ...extras }] }
+{ "patient_id": "...", "admission_id|contact_id": "...", "text_path": "/opt/...", ...extras }
 ```
 
-Output: same array with `text` field added to each record.
+Output: same object with `text` field added.
 
-**Validation (hard fail, per-record reporting):**
+**Validation (hard fail):**
 - `patient_id` required
 - `admission_id` OR `contact_id` required (at least one)
 - `text_path` must exist on filesystem
@@ -46,7 +46,7 @@ Output: same array with `text` field added to each record.
 | `.xml` | stdlib `xml.etree.ElementTree` | all text nodes via `itertext()` |
 | `.json` | stdlib json | reads `data['text']` or `data['Text']` |
 
-**Error strategy:** two-pass — validate all records first, then extract all. Both passes collect all failures before returning 422. Response: `{"error": "...", "failures": [{"index": i, "patient_id": "...", "detail": "..."}]}`.
+**Error strategy:** validate first, then extract. On failure: `{"error": "...", "detail": "..."}` with 422.
 
 ## Future work
 
