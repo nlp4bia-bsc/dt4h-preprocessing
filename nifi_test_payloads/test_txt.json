@@ -1,9 +1,5 @@
 {
-  "content": [
-    {
-      "patient_id": "P001",
-      "admission_id": "A001",
-      "text_path": "/opt/data/preprocessing-test/sample.txt"
-    }
-  ]
+  "patient_id": "P001",
+  "admission_id": "A001",
+  "text_path": "/opt/data/preprocessing-test/sample.txt"
 }
