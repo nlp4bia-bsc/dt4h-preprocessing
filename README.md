@@ -13,7 +13,7 @@ Text extraction microservice for the DT4H Cogstack-NiFi pipeline. Receives patie
     {
       "patient_id": "P001",
       "admission_id": "A123",
-      "text_path": "/opt/cogstack/data/notes/P001.txt",
+      "text_path": "/opt/data/notes/P001.txt",
       "...": "any additional metadata fields are passed through unchanged"
     }
   ]
@@ -29,7 +29,7 @@ Text extraction microservice for the DT4H Cogstack-NiFi pipeline. Receives patie
     {
       "patient_id": "P001",
       "admission_id": "A123",
-      "text_path": "/opt/cogstack/data/notes/P001.txt",
+      "text_path": "/opt/data/notes/P001.txt",
       "text": "Extracted plain text content...",
       "...": "..."
     }
