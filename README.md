@@ -77,6 +77,48 @@ Covers: attribute validation, all supported file formats, `.txt` encoding varian
 
 ---
 
+### Generating test records
+
+`create_test_records.py` converts a directory of `.txt` files into all supported formats (txt, pdf, xml, docx) and writes ready-to-POST API payloads for each.
+
+```bash
+uv run python create_test_records.py
+```
+
+**Optional arguments**
+
+| Argument | Default | Description |
+|----------|---------|-------------|
+| `--source DIR` | `milestones_data` | Directory with language subdirectories containing `.txt` files |
+| `--records DIR` | `test_records` | Output root for converted files |
+| `--ptrs DIR` | `test_record_ptrs` | Output root for pointer JSONs |
+| `--font TTF` | auto-detected | Path to a Unicode TTF font (required for non-ASCII characters in PDFs) |
+
+**Output layout**
+
+```
+test_records/{lang}/{format}/{stem}.{ext}
+test_record_ptrs/{lang}/{stem}_{ext}.json
+```
+
+Each pointer JSON is a complete API payload:
+```json
+{
+  "patient_id": "record_stem",
+  "admission_id": "lang_record_stem",
+  "text_path": "/absolute/path/to/test_records/lang/format/record_stem.ext"
+}
+```
+
+Pass a pointer JSON directly to the API:
+```bash
+curl -s -X POST http://localhost:5002/process \
+  -H 'Content-Type: application/json' \
+  -d @test_record_ptrs/en/25350173_pdf.json | python3 -m json.tool
+```
+
+---
+
 ### Manual — start the service first
 
 ```bash

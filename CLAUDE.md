@@ -16,6 +16,9 @@ uv sync
 
 # Docker
 docker compose up --build
+
+# Generate test records from a directory of .txt files
+uv run python create_test_records.py [--source DIR] [--records DIR] [--ptrs DIR] [--font TTF]
 ```
 
 ## Architecture

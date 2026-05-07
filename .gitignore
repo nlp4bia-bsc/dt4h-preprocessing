@@ -9,3 +9,5 @@ wheels/
 # Virtual environments
 .venv
 milestones_data/*
+test_records/
+test_record_ptrs/
