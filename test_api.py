@@ -8,7 +8,7 @@ from main import app
 
 client = TestClient(app)
 
-SAMPLE_FILES = Path(__file__).parent / "parsing_test_files"
+SAMPLE_FILES = Path(__file__).parent / "sample_records"
 
 # ---------------------------------------------------------------------------
 # Helpers
