@@ -85,7 +85,7 @@ def test_extra_fields_pass_through():
 def test_txt_extraction():
     r = post(SAMPLE_FILES / "sample.txt")
     assert r.status_code == 200
-    assert "plain text" in r.json()["text"]
+    assert "NOTAS EXPLICATIVAS" in r.json()["text"]
 
 def test_pdf_extraction():
     r = post(SAMPLE_FILES / "sample.pdf")
@@ -101,7 +101,7 @@ def test_xml_extraction():
     r = post(SAMPLE_FILES / "sample.xml")
     assert r.status_code == 200
     text = r.json()["text"]
-    assert "Hello" in text and "World" in text
+    assert "NOTAS EXPLICATIVAS" in text
 
 def test_unsupported_md_returns_422():
     r = post(SAMPLE_FILES / "sample.md")

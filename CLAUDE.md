@@ -40,7 +40,7 @@ Output: same object with `text` field added.
 - `text_path` must exist on filesystem
 - Extra fields pass through unchanged (`model_config = ConfigDict(extra='allow')`)
 
-**Text extraction by format** (`extractors.py`):
+**Text extraction by format** (`main.py` — `_extract_*` functions):
 | Format | Library | Notes |
 |--------|---------|-------|
 | `.txt` | charset-normalizer | encoding auto-detected |
@@ -50,6 +50,23 @@ Output: same object with `text` field added.
 | `.json` | stdlib json | reads `data['text']` or `data['Text']` |
 
 **Error strategy:** validate first, then extract. On failure: `{"error": "...", "detail": "..."}` with 422.
+
+## Code structure
+
+All logic lives in `main.py` — no separate module files. Three sections separated by header comments:
+- `# ── Models ──` — Pydantic `RecordInput`
+- `# ── Text extraction ──` — `extract_text()` dispatcher + `_extract_*` helpers
+- `# ── API ──` — FastAPI app and `/process` endpoint
+
+## Testing
+
+```bash
+uv run pytest test_api.py -v
+```
+
+Tests use FastAPI `TestClient` (in-process, no server needed). Sample files in `parsing_test_files/` — real Spanish medical records, gitignored. Generate them with `create_test_records.py` if missing.
+
+Content-specific assertions (e.g. `assert "NOTAS EXPLICATIVAS" in text`) are tied to the actual content of the sample files. If sample files are replaced, update those assertions to match.
 
 ## Future work
 

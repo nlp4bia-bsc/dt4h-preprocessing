@@ -75,6 +75,10 @@ uv run pytest test_api.py -v
 
 Covers: attribute validation, all supported file formats, `.txt` encoding variants (UTF-8, Latin-1, CP1252, UTF-16). All 17 tests should pass in under 1 second.
 
+Sample files must exist in `parsing_test_files/` — this directory is gitignored (contains real patient records). Generate them with `create_test_records.py` if missing.
+
+Content-specific assertions in `test_api.py` (e.g. `assert "NOTAS EXPLICATIVAS" in text`) are tied to the actual text in those files. If sample files are replaced, update those assertions to match the new content.
+
 ---
 
 ### Generating test records

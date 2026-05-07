@@ -11,3 +11,4 @@ wheels/
 milestones_data/*
 test_records/
 test_record_ptrs/
+parsing_test_files/
