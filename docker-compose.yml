@@ -5,6 +5,7 @@ services:
       - "5002:5002"
     volumes:
       - /opt:/opt
+      - ../CogStack-NiFi/data:/cogstack_data  # mount the shared data dir
 
 networks:
   default:
