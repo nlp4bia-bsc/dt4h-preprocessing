@@ -87,6 +87,9 @@ def _extract_json(path: Path) -> str:
 
 app = FastAPI(title="DT4H Preprocessing", version="0.1.0")
 
+@app.get("/", status_code=200)
+def health():
+    return "OK"
 
 @app.post("/process")
 async def process(request: Request):
